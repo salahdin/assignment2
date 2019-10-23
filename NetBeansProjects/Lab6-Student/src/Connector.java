@@ -17,7 +17,7 @@ public class Connector {
         Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/meditech_appointment_system_database","root","");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/registrationsystem","root","");
             //JOptionPane.showMessageDialog(null, "Connection Established");
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
