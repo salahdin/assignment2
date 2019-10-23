@@ -69,6 +69,11 @@ public class admin extends javax.swing.JFrame {
         studentType = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        Studentid = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        CRtable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,6 +156,41 @@ public class admin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, -1, -1));
+
+        Studentid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StudentidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Studentid, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 410, 80, -1));
+
+        jLabel8.setText("Student ID");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, -1, -1));
+
+        jButton2.setText("Get Courses & Modules");
+        jButton2.setToolTipText("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 410, -1, -1));
+
+        CRtable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Course ", "Module"
+            }
+        ));
+        CRtable.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(CRtable);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, 300, 90));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -250,6 +290,34 @@ public class admin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void StudentidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StudentidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StudentidActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try 
+        {
+          DefaultTableModel tableModel = (DefaultTableModel) CRtable.getModel();
+          int sid = Integer.parseInt(Studentid.getText()); 
+          PreparedStatement search = conn.prepareStatement("SELECT M.M_Name ,C.CTitle "
+                  + "FROM courseregistration AS CR , moduleregistration AS MR,course AS C,module AS M "
+                  + "WHERE MR.S_ID = ? AND CR.S_ID = ? AND MR.S_ID = CR.S_ID AND M.M_ID = MR.M_ID AND C.C_ID=CR_CID ");
+          search.setInt(1, sid);
+          ResultSet rs = search.executeQuery();
+          
+          while(rs.next()){
+            String cName = rs.getString("CTitle");
+            String mName = rs.getString("M_Name");             
+            tableModel.addRow(new Object[]{cName,mName });
+        }
+        rs.close();
+          }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,11 +354,14 @@ public class admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable CRtable;
+    private javax.swing.JTextField Studentid;
     private javax.swing.JButton addStudent;
     private javax.swing.JTextField age;
     private javax.swing.JTextField fname;
     private javax.swing.JTable informationTable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -298,7 +369,9 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField lname;
     private javax.swing.JButton searchByID;
     private javax.swing.JTextField sid;

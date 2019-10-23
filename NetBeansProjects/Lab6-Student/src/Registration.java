@@ -86,6 +86,11 @@ public class Registration extends javax.swing.JFrame {
         getContentPane().add(regForCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 410, -1, -1));
 
         viewRegByYear.setText("VIEW COURSE REGISTRATIONS AND MODULES BY YEAR");
+        viewRegByYear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewRegByYearActionPerformed(evt);
+            }
+        });
         getContentPane().add(viewRegByYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 410, 380, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -125,6 +130,10 @@ public class Registration extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_regForCourseActionPerformed
+
+    private void viewRegByYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewRegByYearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewRegByYearActionPerformed
 
     /**
      * @param args the command line arguments
