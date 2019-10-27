@@ -31,9 +31,9 @@ public class admin extends javax.swing.JFrame {
             System.out.println("connection and updating database");
             System.out.println("Using JDBC + Oracle on java");
             Class.forName("oracle.jdbc.OracleDriver").newInstance();
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@10.0.18.2:1521:orcl",
-               "mok04824", "mok04824");
-              
+            conn = Connector.ConnectDb();
+            System.out.println("Connection made");
+            //conn = DriverManager.getConnection("jdbc:oracle:thin:@10.0.18.2:1521:orcl","mok04824", "mok04824");              
         } 
         catch (Exception E) {
             System.err.println("Unable to load driver.");
@@ -55,7 +55,6 @@ public class admin extends javax.swing.JFrame {
         fname = new javax.swing.JTextField();
         lname = new javax.swing.JTextField();
         sid = new javax.swing.JTextField();
-        age = new javax.swing.JTextField();
         addStudent = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         informationTable = new javax.swing.JTable();
@@ -66,28 +65,32 @@ public class admin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        studentType = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel8 = new javax.swing.JLabel();
+        Day = new javax.swing.JSpinner();
+        Month = new javax.swing.JSpinner();
+        Year = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Student Administration ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 300, 60));
-        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 150, -1));
+        jLabel1.setText("Adding a Student");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1000, 40));
+        getContentPane().add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 150, -1));
 
         lname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lnameActionPerformed(evt);
             }
         });
-        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 110, -1));
-        getContentPane().add(sid, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 120, -1));
-        getContentPane().add(age, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 40, -1));
+        getContentPane().add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 150, -1));
+        getContentPane().add(sid, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 120, -1));
 
         addStudent.setText("Add");
         addStudent.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +98,7 @@ public class admin extends javax.swing.JFrame {
                 addStudentActionPerformed(evt);
             }
         });
-        getContentPane().add(addStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 130, 70, -1));
+        getContentPane().add(addStudent, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, 90, -1));
 
         informationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +110,7 @@ public class admin extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(informationTable);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 710, 140));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 710, 140));
 
         viewAllStudents.setText("View");
         viewAllStudents.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +118,7 @@ public class admin extends javax.swing.JFrame {
                 viewAllStudentsActionPerformed(evt);
             }
         });
-        getContentPane().add(viewAllStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, -1, -1));
+        getContentPane().add(viewAllStudents, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 490, -1, -1));
 
         searchByID.setText("Search");
         searchByID.addActionListener(new java.awt.event.ActionListener() {
@@ -123,26 +126,22 @@ public class admin extends javax.swing.JFrame {
                 searchByIDActionPerformed(evt);
             }
         });
-        getContentPane().add(searchByID, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 550, -1));
+        getContentPane().add(searchByID, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 490, 550, -1));
 
         jLabel3.setText("Student ID");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, 20));
 
         jLabel4.setText("Age");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, -1, -1));
 
         jLabel5.setText("Last Name");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 80, 20));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 180, 80, 20));
 
         jLabel6.setText("First Name");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 70, 20));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 70, 20));
 
         jLabel7.setText("Student Type");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
-        getContentPane().add(studentType, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 370, -1));
-
-        jLabel2.setText("log out");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 420, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
 
         jButton1.setText("update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -150,20 +149,63 @@ public class admin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 490, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Undergraduate", "Postgraduate" }));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 120, -1));
+
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 51));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Student Administration ");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1000, 60));
+
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(18, 0, 100, 1));
+        getContentPane().add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 60, -1));
+
+        jLabel8.setText("Date of Birth");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 140, -1, -1));
+
+        Day.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        Day.setToolTipText("Day");
+        getContentPane().add(Day, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, 70, -1));
+
+        Month.setModel(new javax.swing.SpinnerListModel(new String[] {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"}));
+        Month.setToolTipText("Month");
+        getContentPane().add(Month, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 140, 70, -1));
+
+        Year.setModel(new javax.swing.SpinnerNumberModel(2000, 1950, 3000, 1));
+        Year.setToolTipText("Year");
+        getContentPane().add(Year, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 140, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentActionPerformed
       try {
-          String sql = "INSERT INTO STUDENT(STUDENTID,FIRSTNAME,LASTNAME,AGE, STUDENTTYPE) VALUES(?,?,?,?, ?)";
+          //Uliyan, formatting date to MySQL date format
+          String date = Year.getValue().toString() + "-" + Month.getValue().toString() + "-";          
+          if(Day.getValue().toString().length() == 1){
+              date += "0" + Day.getValue().toString();
+          }else{
+              date += Day.getValue().toString();
+          }
+          
+          //Uliyan, ensuring student id is of length 8
+          String studentId = sid.getText();
+          if(studentId.length() != 8){
+              JOptionPane.showMessageDialog(null, "Student ID should be of length 8");
+              return;
+          }         
+          
+          String sql = "INSERT INTO student(S_ID,DoB,Fname,Lname,Age, Program) VALUES(?,?,?,?,?,?)";
           pst = conn.prepareStatement(sql);
           pst.setInt(1,Integer.parseInt(sid.getText()));
-          pst.setString(2,fname.getText());
-          pst.setString(3,lname.getText());
-          pst.setString(4,age.getText());
-          pst.setString(5,studentType.getText());
+          pst.setString(2,date);
+          pst.setString(3,fname.getText());
+          pst.setString(4,lname.getText());
+          pst.setString(5,jSpinner1.getValue().toString());
+          pst.setString(6,jComboBox1.getSelectedItem().toString());
           pst.executeUpdate();
           JOptionPane.showMessageDialog(null, "Inserted successfully!!");
       } catch (SQLException ex) {
@@ -286,11 +328,14 @@ public class admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner Day;
+    private javax.swing.JSpinner Month;
+    private javax.swing.JSpinner Year;
     private javax.swing.JButton addStudent;
-    private javax.swing.JTextField age;
     private javax.swing.JTextField fname;
     private javax.swing.JTable informationTable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -298,11 +343,12 @@ public class admin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField lname;
     private javax.swing.JButton searchByID;
     private javax.swing.JTextField sid;
-    private javax.swing.JTextField studentType;
     private javax.swing.JButton viewAllStudents;
     // End of variables declaration//GEN-END:variables
 }
